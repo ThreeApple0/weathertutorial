@@ -203,7 +203,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="일출" />
+                        android:text="풍량" />
 
                     <TextView
                         android:id="@+id/wind"
@@ -242,7 +242,7 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/sunrise"
+                        android:src="@drawable/pressure"
                         app:tint="#FFF" />
 
                     <Space
@@ -252,7 +252,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="일출" />
+                        android:text="기압" />
 
                     <TextView
                         android:id="@+id/pressure"
@@ -278,7 +278,7 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/sunrise"
+                        android:src="@drawable/humidity"
                         app:tint="#FFF" />
 
                     <Space
@@ -288,7 +288,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="일출" />
+                        android:text="습도" />
 
                     <TextView
                         android:id="@+id/humidity"
@@ -314,7 +314,7 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/sunrise"
+                        android:src="@drawable/info"
                         app:tint="#FFF" />
 
                     <Space
@@ -324,7 +324,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="일출" />
+                        android:text="정보" />
 
                     <TextView
                         android:id="@+id/info"
@@ -343,4 +343,11 @@
         </LinearLayout>
 
     </RelativeLayout>
+    <ProgressBar
+        android:id="@+id/loa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </ProgressBar>
+
 </RelativeLayout>
