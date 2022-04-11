@@ -9,6 +9,8 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import org.json.JSONObject
 import java.net.URL
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     val CITY: String = "dhaka,bd"
@@ -50,6 +52,31 @@ class MainActivity : AppCompatActivity() {
                 val wind = jsonobj.getJSONObject("wind")
                 val weather = jsonobj.getJSONArray("weather").getJSONObject(0)
                 val updatedAt:Long = jsonobj.getLong("dt")
+                val updatedAtText = "기준 : "+SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(Date(updatedAt*1000))
+                val temp = main.getString("temp")+"°C"
+                val tempMin = "최저온도 : "+main.getString("temp_min")+"°C"
+                val tempMax = "최고온도 : "+main.getString("temp_max")+"°C"
+                val pressure = main.getString("pressure")
+                val humidity = main.getString("humidity")
+                val sunrise:Long = sys.getLong("sunrise")
+                val sunset:Long = sys.getLong("sunset")
+                val windSpeed = wind.getString("speed")
+                val weatherDescription = weather.getString("description")
+                val address = jsonobj.getString("name")+", "+sys.getString("country")
+
+                findViewById<TextView>(R.id.address).text=address
+                findViewById<TextView>(R.id.updated_up).text=updatedAtText
+                findViewById<TextView>(R.id.status).text=(weatherDescription).uppercase()
+                findViewById<TextView>(R.id.temp).text=temp
+                findViewById<TextView>(R.id.min_temp).text=tempMin
+                findViewById<TextView>(R.id.max_temp).text=tempMax
+                findViewById<TextView>(R.id.sunrise).text=address
+                findViewById<TextView>(R.id.address).text=address
+                findViewById<TextView>(R.id.address).text=address
+                findViewById<TextView>(R.id.address).text=address
+                findViewById<TextView>(R.id.address).text=address
+
+
             }
             catch (e:Exception){
 
