@@ -7,10 +7,13 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import org.json.JSONObject
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 
 class MainActivity : AppCompatActivity() {
     val CITY: String = "seoul"
@@ -20,6 +23,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         weatherTask().execute()
+
+        val research_L = findViewById<SwipeRefreshLayout>(R.id.research_L)
+        research_L.setOnRefreshListener {
+            weatherTask().execute()
+            research_L.isRefreshing = false
+        }
     }
 
     inner class weatherTask(): AsyncTask<String, Void,String>(){
@@ -52,10 +61,10 @@ class MainActivity : AppCompatActivity() {
                 val wind = jsonobj.getJSONObject("wind")
                 val weather = jsonobj.getJSONArray("weather").getJSONObject(0)
                 val updatedAt:Long = jsonobj.getLong("dt")
-                val updatedAtText = "기준 : "+SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(Date(updatedAt*1000))
-                val temp = (main.getString("temp").toFloat() - 273 ).toString()+"°C"
-                val tempMin = "최저온도 : "+(main.getString("temp_min").toFloat() - 273 ).toString()+"°C"
-                val tempMax = "최고온도 : "+(main.getString("temp_max").toFloat() - 273 ).toString()+"°C"
+                val updatedAtText = "기준 : "+SimpleDateFormat("yyyy/MM/dd hh:mm a", Locale.ENGLISH).format(Date(updatedAt*1000))
+                val temp = ((((main.getString("temp").toFloat() - 273 )*10).roundToLong())/10f).toString()+"°C"
+                val tempMin = "최저온도 : "+((((main.getString("temp_min").toFloat() - 273 )*10).roundToLong())/10f).toString()+"°C"
+                val tempMax = "최고온도 : "+((((main.getString("temp_max").toFloat() - 273 )*10).roundToLong())/10f).toString()+"°C"
                 val pressure = main.getString("pressure")
                 val humidity = main.getString("humidity")
                 val sunrise:Long = sys.getLong("sunrise")
