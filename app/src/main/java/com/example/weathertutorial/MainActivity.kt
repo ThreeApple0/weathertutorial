@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    val CITY: String = "dhaka,bd"
+    val CITY: String = "seoul"
     val API: String = "0e863d0ed1d76744cb0ad1fb01a10d3c"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,9 +53,9 @@ class MainActivity : AppCompatActivity() {
                 val weather = jsonobj.getJSONArray("weather").getJSONObject(0)
                 val updatedAt:Long = jsonobj.getLong("dt")
                 val updatedAtText = "기준 : "+SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(Date(updatedAt*1000))
-                val temp = main.getString("temp")+"°C"
-                val tempMin = "최저온도 : "+main.getString("temp_min")+"°C"
-                val tempMax = "최고온도 : "+main.getString("temp_max")+"°C"
+                val temp = (main.getString("temp").toFloat() - 273 ).toString()+"°C"
+                val tempMin = "최저온도 : "+(main.getString("temp_min").toFloat() - 273 ).toString()+"°C"
+                val tempMax = "최고온도 : "+(main.getString("temp_max").toFloat() - 273 ).toString()+"°C"
                 val pressure = main.getString("pressure")
                 val humidity = main.getString("humidity")
                 val sunrise:Long = sys.getLong("sunrise")
@@ -70,16 +70,21 @@ class MainActivity : AppCompatActivity() {
                 findViewById<TextView>(R.id.temp).text=temp
                 findViewById<TextView>(R.id.min_temp).text=tempMin
                 findViewById<TextView>(R.id.max_temp).text=tempMax
-                findViewById<TextView>(R.id.sunrise).text=address
-                findViewById<TextView>(R.id.address).text=address
-                findViewById<TextView>(R.id.address).text=address
-                findViewById<TextView>(R.id.address).text=address
-                findViewById<TextView>(R.id.address).text=address
+                findViewById<TextView>(R.id.sunrise).text=SimpleDateFormat("hh:mm a",Locale.ENGLISH).format(Date(sunrise*1000))
+                findViewById<TextView>(R.id.sunset).text=SimpleDateFormat("hh:mm a",Locale.ENGLISH).format(Date(sunset*1000))
+                findViewById<TextView>(R.id.wind).text=windSpeed
+                findViewById<TextView>(R.id.pressure).text=pressure
+                findViewById<TextView>(R.id.humidity).text=humidity
+
+                findViewById<ProgressBar>(R.id.loader).visibility = View.GONE
+                findViewById<RelativeLayout>(R.id.main_C).visibility = View.VISIBLE
 
 
             }
             catch (e:Exception){
-
+                findViewById<ProgressBar>(R.id.loader).visibility = View.GONE
+                findViewById<TextView>(R.id.errortext).visibility = View.VISIBLE
+                findViewById<TextView>(R.id.errortext).text = e.toString()
             }
         }
     }
